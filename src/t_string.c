@@ -29,6 +29,7 @@
 
 #include "server.h"
 #include <math.h> /* isnan(), isinf() */
+#include "sds.h"
 
 /*-----------------------------------------------------------------------------
  * String Commands
@@ -476,8 +477,6 @@ void settreeCommand(client *c) {
 	sds* key = (sds*)c->argv[1]->ptr;
 	sds* value = (sds*)c->argv[2]->ptr;
 	sds msg = sdscatsds(*key, *value)
-	robj replyobj;
-	initStaticStringObject(replyobj, &msg)
-	addReplyBulk(c, &replyobj);
+	addReplyBulkSds(c, &sds);
 }
 
