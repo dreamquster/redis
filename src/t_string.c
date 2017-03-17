@@ -474,7 +474,7 @@ void strlenCommand(client *c) {
 }
 
 void settreeCommand(client *c) {
-	sds* key = (sds*)c->argv[1]->ptr;
+	sds key = sdsdup(*((sds*)c->argv[1]->ptr));
 	sds* value = (sds*)c->argv[2]->ptr;
 	sds msg = sdscatsds(*key, *value);
 	addReplyBulkSds(c, msg);
