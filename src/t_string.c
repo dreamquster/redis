@@ -471,3 +471,13 @@ void strlenCommand(client *c) {
         checkType(c,o,OBJ_STRING)) return;
     addReplyLongLong(c,stringObjectLen(o));
 }
+
+void settreeCommand(client *c) {
+	sds* key = (sds*)c->argv[1]->ptr;
+	sds* value = (sds*)c->argv[2]->prt;
+	sds msg = sdscatsds(*key, *value)
+	robj replyobj;
+	initStaticStringObject(replyobj, &msg)
+	addReplyBulk(c, &replyobj);
+}
+
